@@ -1,31 +1,28 @@
 from flask_restful import Resource
 from flask import request
 
+from app.controllers.user import login, sign_up
+
 
 class Auth(Resource):
     def post(self):
-        """
 
-        :return:
-        """
         user_id = request.json['id']
-        user_pw = request.json['password']
+        user_password = request.json['password']
 
-        pass
+        return login(user_id, user_password)
 
 
 class User(Resource):
     def post(self):
-        """
-        User Registration
-        :return:
-        """
 
         user_id = request.json['id']
-        user_pw = request.json['password']
+        user_password = request.json['password']
         user_name = request.json['name']
 
-        pass
+        return sign_up(user_id, user_password, user_name)
+
+
 
 
 
