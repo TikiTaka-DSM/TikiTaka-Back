@@ -6,6 +6,6 @@ from config.db import LocalDBConfig
 
 Base = declarative_base()
 
-db_engine = create_engine(LocalDBConfig.DB_URL)
+db_engine = create_engine(LocalDBConfig.DB_URL, echo=False)
 Session = scoped_session(sessionmaker(bind=db_engine, autocommit=False, autoflush=False))
 session = Session()
