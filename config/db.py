@@ -6,8 +6,4 @@ class LocalDBConfig:
 
 
 class RemoteDBConfig:
-    DATABASE_USER = DB_USER
-    DATABASE_PASSWORD = DB_PASSWORD
-    DATABASE_HOST = DB_HOST
-    DATABASE_PORT = DB_PORT
-    DATABASE_NAME = DB_NAME
+    DB_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}?charset=utf8mb4"
