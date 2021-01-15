@@ -6,6 +6,6 @@ from config.db import RemoteDBConfig
 
 Base = declarative_base()
 
-db_engine = create_engine(RemoteDBConfig.DATABASE_HOST, echo=False)
+db_engine = create_engine(RemoteDBConfig.DB_URL, echo=False)
 Session = scoped_session(sessionmaker(bind=db_engine, autocommit=False, autoflush=False))
 session = Session()
