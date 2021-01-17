@@ -17,7 +17,7 @@ def create_app(*config_cls):
     return _app
 
 
-def create_socketio(app):
-    socketio = SocketIO(app)
+def create_socketio(_app):
+    socketio = SocketIO(_app)
 
     return socketio
