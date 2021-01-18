@@ -8,4 +8,4 @@ class Friend(Base):
 
     user_id = Column(String(45), ForeignKey('users.id'), primary_key=True)
     friend_user_id = Column(String(45), ForeignKey('users.id'), primary_key=True)
-    blocking_state = Column(Boolean, nullable=False)
+    blocking_state = Column(Boolean, nullable=False, server_default=False)
