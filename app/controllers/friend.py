@@ -20,6 +20,12 @@ def _create_friend(owner_user_id, other_user_id):
 
 def create_new_friend(owner_user, other_user):
 
+    if owner_user == other_user:
+        abort(400, "I can’t make yourself a friend")
+
+    if not get_user_data_by_user_id(other_user):
+        abort(404, "This user can't find user data")
+
     if get_friend_state(owner_user, other_user):
         abort(409, "Already friend!")
 
