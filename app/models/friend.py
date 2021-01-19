@@ -21,7 +21,4 @@ def get_friend_state(owner_user, other_user):
     friendship = session.query(Friend).filter(Friend.user_id == owner_user).\
                           filter(Friend.friend_user_id == other_user).first()
 
-    if friendship:
-        return True
-
-    return False
+    return friendship
