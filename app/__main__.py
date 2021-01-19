@@ -11,4 +11,4 @@ if __name__ == '__main__':
 
     Base.metadata.create_all(db_engine)
 
-    socketio.run(app, debug=True)
+    socketio.run(app, host="0.0.0.0")
