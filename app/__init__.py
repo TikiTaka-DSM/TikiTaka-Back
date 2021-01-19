@@ -23,3 +23,4 @@ def create_socketio(_app):
     socketio = SocketIO(_app)
 
     return socketio
+
