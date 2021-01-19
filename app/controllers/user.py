@@ -4,12 +4,8 @@ from werkzeug.security import generate_password_hash
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import session
-from app.models.user import User
+from app.models.user import User, get_user_data_by_user_id
 from app.services.auth import is_current_password
-
-
-def get_user_data_by_user_id(user_id):
-    return session.query(User).filter(User.id == user_id).first()
 
 
 def _create_user(user_id, user_password, user_name):
