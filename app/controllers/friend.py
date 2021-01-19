@@ -2,17 +2,8 @@ from flask import abort
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import session
-from app.models.friend import Friend
-
-
-def get_friend_state(owner_user, other_user):
-    friendship = session.query(Friend).filter(Friend.user_id == owner_user).\
-                          filter(Friend.friend_user_id == other_user).first()
-
-    if friendship:
-        return True
-
-    return False
+from app.models.user import get_user_data_by_user_id
+from app.models.friend import Friend, get_friendship_data, get_friend_state
 
 
 def _create_friend(owner_user_id, other_user_id):
@@ -43,4 +34,23 @@ def create_new_friend(owner_user, other_user):
 
     return {
         "message": "Successfully add friend"
+    }
+
+
+def get_friends(owner_user):
+
+    friendships = get_friendship_data(owner_user)
+    friends = []
+    for friendship in friendships:
+        friends.append(get_user_data_by_user_id(friendship.friend_user_id))
+
+    return {
+        "friends": [
+            {
+                "id": friend.id,
+                "img": friend.img,
+                "name": friend.name,
+                "statusMessage": friend.introduction
+            }
+        ] for friend in friends
     }

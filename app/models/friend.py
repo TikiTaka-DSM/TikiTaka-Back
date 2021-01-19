@@ -1,6 +1,6 @@
-from sqlalchemy import Column, String, Integer, ForeignKey, Boolean
+from sqlalchemy import Column, String, ForeignKey, Boolean
 
-from app.models import Base
+from app.models import Base, session
 
 
 class Friend(Base):
@@ -8,4 +8,20 @@ class Friend(Base):
 
     user_id = Column(String(45), ForeignKey('users.id'), primary_key=True)
     friend_user_id = Column(String(45), ForeignKey('users.id'), primary_key=True)
-    blocking_state = Column(Boolean, nullable=False, server_default=False)
+    blocking_state = Column(Boolean, nullable=False, default=False)
+
+
+def get_friendship_data(owner_user_id):
+    friendships = session.query(Friend).filter(Friend.user_id == owner_user_id).all()
+
+    return friendships
+
+
+def get_friend_state(owner_user, other_user):
+    friendship = session.query(Friend).filter(Friend.user_id == owner_user).\
+                          filter(Friend.friend_user_id == other_user).first()
+
+    if friendship:
+        return True
+
+    return False

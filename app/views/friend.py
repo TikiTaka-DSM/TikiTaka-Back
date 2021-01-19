@@ -2,7 +2,7 @@ from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from app.controllers.friend import create_new_friend
+from app.controllers.friend import create_new_friend, get_friends
 
 
 class SearchToAddFriend(Resource):
@@ -22,4 +22,5 @@ class GetFriends(Resource):
     @jwt_required
     def get(self):
         owner_user = get_jwt_identity()
-        pass
+
+        return get_friends(owner_user)
