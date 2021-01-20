@@ -14,6 +14,7 @@ def _create_room(room_name):
 
     session.add(room)
     session.commit()
+    session.close()
 
     return room.id
 
