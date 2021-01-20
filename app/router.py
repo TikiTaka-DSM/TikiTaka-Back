@@ -1,5 +1,5 @@
 from flask_restful import Api
-from flask import Blueprint
+from flask import Blueprint, current_app
 
 from app.views.ping import Ping
 from app.views.user import Auth, User
@@ -8,8 +8,18 @@ from app.views.room import CreateNewRoom
 from app.views.profile import Profile
 
 
+class CustomApi(Api):
+    def handle_error(self, e):
+        for val in current_app.error_handler_spec.values():
+            for handler in val.values():
+                registered_error_handlers = list(filter(lambda x: isinstance(e, x), handler.keys()))
+                if len(registered_error_handlers) > 0:
+                    raise e
+        return super().handle_error(e)
+
+
 bp = Blueprint("api", __name__, url_prefix="")
-api = Api(bp)
+api = CustomApi(bp)
 
 api.add_resource(Ping, '/ping')
 
