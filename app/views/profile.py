@@ -2,7 +2,7 @@ from flask_restful import Resource
 from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from app.controllers.profile import get_profile
+from app.controllers.profile import get_profile, get_myprofile, edit_profile
 
 
 class MyProfile(Resource):
@@ -10,13 +10,19 @@ class MyProfile(Resource):
     def get(self):
         owner_user = get_jwt_identity()
 
-        pass
+        return get_myprofile(owner_user)
 
     @jwt_required
     def put(self):
         owner_user = get_jwt_identity()
+        img = request.files['img']
+        name = request.files['name']
+        status_message = request.files['statusMessage']
 
-        pass
+        return edit_profile(user_id=owner_user,
+                            img=img,
+                            name=name,
+                            status_message=status_message)
 
 
 class Profile(Resource):
