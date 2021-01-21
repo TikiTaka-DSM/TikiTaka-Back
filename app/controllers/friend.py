@@ -56,8 +56,7 @@ def get_friends(owner_user):
             {
                 "id": friend.id,
                 "img": friend.img,
-                "name": friend.name,
-                "statusMessage": friend.introduction
+                "name": friend.name
             }
         ] for friend in friends
     }
