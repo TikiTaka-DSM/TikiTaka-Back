@@ -12,6 +12,7 @@ def get_myprofile(user_id):
 
     return {
         "profileData": {
+            "id": user_id,
             "img": user.img,
             "name": user.name,
             "statusMessage": user.introduction
@@ -30,6 +31,7 @@ def get_profile(owner_user_id, other_user_id):
 
     return {
         "profileData": {
+            "id": other_user_id,
             "img": user_data.img,
             "name": user_data.name,
             "statusMessage": user_data.introduction
