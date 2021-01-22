@@ -25,11 +25,13 @@ def catch_exception(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         try:
-            func(*args, **kwargs)
+            value = func(*args, **kwargs)
         except SQLAlchemyError as e:
             session.rollback()
             print("[[ERROR LOG]] \n" + str(e))
             abort(418, "db_error")
         finally:
             session.close()
+        return value
+    return wrapper
 
