@@ -63,9 +63,9 @@ def get_friends(owner_user):
 
 
 def search_friend_by_user_id(user_id):
-    user_id = get_user_data_by_user_id(user_id)
+    user = get_user_data_by_user_id(user_id)
 
-    if not user_id:
+    if not user:
         abort(404, "This user id not found")
 
     return {
