@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String
 
-from app.models import Base, session
+from app.models import Base, session, catch_exception
 
 
 class User(Base):
@@ -13,10 +13,12 @@ class User(Base):
     introduction = Column(String(100), nullable=True)
 
 
+@catch_exception
 def get_user_data_by_user_id(user_id):
     return session.query(User).filter(User.id == user_id).first()
 
 
+@catch_exception
 def update_profile(user_id, user_data):
     user = get_user_data_by_user_id(user_id)
 
