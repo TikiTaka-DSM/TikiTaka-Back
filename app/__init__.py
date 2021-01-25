@@ -65,6 +65,10 @@ def create_socketio(_app):
         emit('realTimeChatting', dumps(message_data), room=room_id)
         leave_room(room_id)
 
+    @socketio.on('test')
+    def test():
+        emit('test', "test")
+
     @socketio.on('sendImage')
     def recevie_file(json):
         file_bytes = json['file'].encode()
