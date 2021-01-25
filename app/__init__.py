@@ -65,20 +65,12 @@ def create_socketio(_app):
         emit('realTimeChatting', dumps(message_data), room=room_id)
         leave_room(room_id)
 
-    @socketio.event
-    def connect():
-        print('connect')
-
     @socketio.on('sendImage')
     def recevie_file(json):
         file_bytes = json['file'].encode()
         file = BytesIO(base64.b64decode(file_bytes))
 
         upload_image_to_s3(file, str(uuid.uuid4()) + '.png')
-
-    @socketio.event
-    def disconnect():
-        print('disconnect')
 
     return socketio
 
