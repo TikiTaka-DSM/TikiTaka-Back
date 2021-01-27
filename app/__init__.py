@@ -46,6 +46,7 @@ def create_socketio(_app):
 
         session.add(message)
         session.commit()
+        session.close()
 
         _message = session.query(Message).filter(Message.user_id == user_id).filter(Message.room_id == room_id).first()
 
@@ -77,4 +78,3 @@ def create_socketio(_app):
         upload_image_to_s3(file, str(uuid.uuid4()) + '.png')
 
     return socketio
-
