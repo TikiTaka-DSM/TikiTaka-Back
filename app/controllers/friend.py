@@ -2,8 +2,8 @@ from flask import abort
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import session
-from app.models.user import get_user_data_by_user_id
-from app.models.friend import Friend, get_friendship_data, get_friend_state
+from app.services.user import get_user_data_by_user_id
+from app.services.friend import Friend, get_friendship_data, get_friend_state
 
 
 def _create_friend(owner_user_id, other_user_id):
