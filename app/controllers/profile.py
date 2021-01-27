@@ -1,8 +1,8 @@
 from flask import abort
 from uuid import uuid4
 
-from app.models.user import get_user_data_by_user_id, update_profile
-from app.models.friend import get_friend_state
+from app.services.user import get_user_data_by_user_id, update_profile
+from app.services.friend import get_friend_state
 from utils.s3 import upload_image_to_s3
 
 
