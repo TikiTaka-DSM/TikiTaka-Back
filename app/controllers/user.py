@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import session
-from app.models.user import User, get_user_data_by_user_id, insert_user
+from app.services.user import User, get_user_data_by_user_id, insert_user
 from app.services.auth import is_current_password
 
 
