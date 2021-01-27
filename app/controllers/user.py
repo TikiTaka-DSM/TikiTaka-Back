@@ -4,35 +4,15 @@ from werkzeug.security import generate_password_hash
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import session
-from app.models.user import User, get_user_data_by_user_id
+from app.models.user import User, get_user_data_by_user_id, insert_user
 from app.services.auth import is_current_password
-
-
-def _create_user(user_id, user_password, user_name):
-
-    user = User(id=user_id,
-                password=generate_password_hash(user_password),
-                name=user_name,
-                img='default.png',
-                introduction='')
-
-    session.add(user)
-    session.commit()
-    session.close()
 
 
 def sign_up(user_id, user_password, user_name):
     if get_user_data_by_user_id(user_id):
         abort(409, "This id is already signed up")
 
-    try:
-        _create_user(user_id, user_password, user_name)
-
-    except SQLAlchemyError as e:
-        print("[ERROR MESSAGE] " + str(e))
-
-        session.rollback()
-        abort(418, "db_error")
+    insert_user(user_id, generate_password_hash(user_password), user_name)
 
     return {
         "message": "Successfully signed up"
