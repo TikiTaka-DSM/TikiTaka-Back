@@ -35,8 +35,8 @@ def get_friends(owner_user):
                 "id": friend.id,
                 "img": friend.img,
                 "name": friend.name
-            }
-        ] for friend in friends
+            } for friend in friends
+        ]
     }
 
 
