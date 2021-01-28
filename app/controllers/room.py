@@ -1,6 +1,7 @@
 from app.services.member import get_room_id_by_member, get_chatting_member, get_members_by_user_id
 from app.services.room import insert_room
 from app.services.user import get_user_data_by_user_id
+from app.services.member import insert_member
 from app.services.message import get_latest_message, get_messages
 from app.models.message import MessageType
 
@@ -9,8 +10,9 @@ def create_new_chatting_room(owner_user_id, friend_user_id):
     room_id = get_room_id_by_member(owner_user_id, friend_user_id)
 
     if not room_id:
-        insert_room()
-        room_id = get_room_id_by_member(owner_user_id, friend_user_id)
+        room_id = insert_room()
+        insert_member(room_id, owner_user_id)
+        insert_member(room_id, friend_user_id)
 
     return {
         "roomData": {
