@@ -3,6 +3,7 @@ from uuid import uuid4
 
 from app.services.user import get_user_data_by_user_id, update_profile
 from app.services.friend import get_friend_state
+from app.services.member import get_room_id_by_member
 from utils.s3 import upload_image_to_s3
 
 
@@ -27,7 +28,7 @@ def get_profile(owner_user_id, other_user_id):
 
     user_data = get_user_data_by_user_id(other_user_id)
     friend_state = get_friend_state(owner_user_id, other_user_id)
-
+    room_id = get_room_id_by_member(owner_user_id, other_user_id)
     return {
         "profileData": {
             "id": other_user_id,
@@ -38,6 +39,9 @@ def get_profile(owner_user_id, other_user_id):
         "state": {
             "friend": True if friend_state else False,
             "block": friend_state.blocking_state
+        }
+        "roomData" : {
+            "roomId": room_id if room_id else None
         }
     }
 
