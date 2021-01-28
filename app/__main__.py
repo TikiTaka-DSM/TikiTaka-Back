@@ -1,4 +1,5 @@
-from app import create_app, create_socketio
+from app import create_app
+from app.socketio__init__ import create_socketio
 from app.models import Base, db_engine
 
 from config.app import LocalAppConfig
