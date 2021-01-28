@@ -4,7 +4,7 @@ from flask import Blueprint, current_app
 from app.views.ping import Ping
 from app.views.user import Auth, User
 from app.views.friend import AddFriend, GetFriends, SearchToAddFriend
-from app.views.room import CreateNewRoom
+from app.views.room import CreateNewRoom, GetChattingRooms, GetChattingRoomDetail
 from app.views.profile import Profile, MyProfile
 
 
@@ -31,6 +31,8 @@ api.add_resource(GetFriends, '/friends')
 api.add_resource(SearchToAddFriend, '/friend')
 
 api.add_resource(CreateNewRoom, '/room')
+api.add_resource(GetChattingRooms, '/rooms')
+api.add_resource(GetChattingRoomDetail, '/rooms/<int:id>')
 
 api.add_resource(Profile, '/profile/<user_id>')
 api.add_resource(MyProfile, '/profile')
