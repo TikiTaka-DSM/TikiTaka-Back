@@ -1,22 +1,7 @@
 from flask import abort
-from sqlalchemy.exc import SQLAlchemyError
 
-from app.models import session
 from app.services.user import get_user_data_by_user_id
-from app.services.friend import Friend, get_friendship_data, get_friend_state
-
-
-def _create_friend(owner_user_id, other_user_id):
-    friendship = Friend(user_id=owner_user_id,
-                        friend_user_id=other_user_id)
-
-    additional_friendship = Friend(user_id=other_user_id,
-                                   friend_user_id=owner_user_id)
-
-    session.add(friendship)
-    session.add(additional_friendship)
-    session.commit()
-    session.close()
+from app.services.friend import get_friendship_data, get_friend_state, insert_friend
 
 
 def create_new_friend(owner_user, other_user):
@@ -30,14 +15,7 @@ def create_new_friend(owner_user, other_user):
     if get_friend_state(owner_user, other_user):
         abort(409, "Already friend!")
 
-    try:
-        _create_friend(owner_user, other_user)
-
-    except SQLAlchemyError as e:
-        print("[ERROR MESSAGE] " + str(e))
-        session.rollback()
-
-        abort(418, "db_error")
+    insert_friend(owner_user, other_user)
 
     return {
         "message": "Successfully add friend"

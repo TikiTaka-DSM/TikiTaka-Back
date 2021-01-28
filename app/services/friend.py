@@ -15,3 +15,17 @@ def get_friend_state(owner_user, other_user):
                           filter(Friend.friend_user_id == other_user).first()
 
     return friendship
+
+
+@catch_exception
+def insert_friend(owner_user_id, other_user_id):
+    friendship = Friend(user_id=owner_user_id,
+                        friend_user_id=other_user_id)
+
+    additional_friendship = Friend(user_id=other_user_id,
+                                   friend_user_id=owner_user_id)
+
+    session.add(friendship)
+    session.add(additional_friendship)
+    session.commit()
+    session.close()
