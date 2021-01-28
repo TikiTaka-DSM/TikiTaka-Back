@@ -15,4 +15,3 @@ def insert_room():
     session.commit()
     session.close()
 
-    return room.id

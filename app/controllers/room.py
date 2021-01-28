@@ -9,7 +9,8 @@ def create_new_chatting_room(owner_user_id, friend_user_id):
     room_id = get_room_id_by_member(owner_user_id, friend_user_id)
 
     if not room_id:
-        room_id = insert_room()
+        insert_room()
+        room_id = get_room_id_by_member(owner_user_id, friend_user_id)
 
     return {
         "roomData": {
