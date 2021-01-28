@@ -13,5 +13,6 @@ def insert_room():
 
     session.add(room)
     session.commit()
-    session.close()
+    room_id = room.id
 
+    return room_id
