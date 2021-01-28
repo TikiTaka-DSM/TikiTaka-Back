@@ -23,6 +23,8 @@ def get_myprofile(user_id):
 
 
 def get_profile(owner_user_id, other_user_id):
+    if not get_user_data_by_user_id(other_user_id):
+        abort(404, "This user not found")
 
     if owner_user_id == other_user_id:
         abort(409, "Please use 'GET /profile' api")
