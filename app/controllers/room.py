@@ -38,14 +38,14 @@ def get_chatting_rooms(owner_user_id):
 
     return {
         "rooms": [{
-            "roomId": room.id,
+            "roomId": room_id,
             "user": {
                 "id": user.id,
                 "img": user.img,
                 "name": user.name
             },
             "lastMessage": message if message else ""
-        } for room, user, message in zip(rooms, friends, messages)]
+        } for room_id, user, message in zip(rooms, friends, messages)]
     }
 
 
