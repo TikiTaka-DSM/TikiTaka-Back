@@ -10,7 +10,7 @@ def get_room_id_by_member(user_id, friend_user_id):
                 group_by(Member.room_id).\
                 having(func.count(Member.room_id) > 1).first()
 
-    return member.room_id
+    return member.room_id if member else None
 
 
 @catch_exception
