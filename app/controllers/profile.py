@@ -39,8 +39,8 @@ def get_profile(owner_user_id, other_user_id):
         "state": {
             "friend": True if friend_state else False,
             "block": friend_state.blocking_state
-        }
-        "roomData" : {
+        },
+        "roomData": {
             "roomId": room_id if room_id else None
         }
     }
