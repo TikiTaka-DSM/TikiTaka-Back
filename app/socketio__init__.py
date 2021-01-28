@@ -16,11 +16,10 @@ def create_socketio(_app):
         emit('test', "test")
 
     @socketio.on('joinRoom')
-    def join_room(data):
+    def join_room_by_id(data):
         room_id = data['roomId']
 
         join_room(room_id)
-
 
     @socketio.on('sendMessage')
     def receive_text_message(data):
