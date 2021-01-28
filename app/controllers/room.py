@@ -4,6 +4,7 @@ from app.services.user import get_user_data_by_user_id
 from app.services.member import insert_member
 from app.services.message import get_latest_message, get_messages
 from app.models.message import MessageType
+from flask import abort
 
 
 def create_new_chatting_room(owner_user_id, friend_user_id):
@@ -51,6 +52,9 @@ def get_chatting_rooms(owner_user_id):
 
 def get_chatting_room_detail(room_id, owner_user_id):
     member = get_chatting_member(room_id, owner_user_id)
+    if not member:
+        abort(404, "No Member Data in Room")
+
     friend = get_user_data_by_user_id(member.user_id)
     messages = get_messages(room_id)
 
