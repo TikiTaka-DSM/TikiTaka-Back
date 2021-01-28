@@ -1,5 +1,6 @@
 from flask import abort
 from uuid import uuid4
+import json
 
 from app.services.user import get_user_data_by_user_id, update_profile
 from app.services.friend import get_friend_state
@@ -29,7 +30,7 @@ def get_profile(owner_user_id, other_user_id):
     user_data = get_user_data_by_user_id(other_user_id)
     friend_state = get_friend_state(owner_user_id, other_user_id)
     room_id = get_room_id_by_member(owner_user_id, other_user_id)
-    return {
+    return json.dumps({
         "profileData": {
             "id": other_user_id,
             "img": user_data.img,
@@ -43,7 +44,7 @@ def get_profile(owner_user_id, other_user_id):
         "roomData": {
             "roomId": room_id if room_id else None
         }
-    }
+    })
 
 
 def edit_profile(user_id, img, name, status_message):
