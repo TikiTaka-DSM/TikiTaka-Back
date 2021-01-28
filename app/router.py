@@ -32,7 +32,7 @@ api.add_resource(SearchToAddFriend, '/friend')
 
 api.add_resource(CreateNewRoom, '/room')
 api.add_resource(GetChattingRooms, '/rooms')
-api.add_resource(GetChattingRoomDetail, '/room/<int:id>')
+api.add_resource(GetChattingRoomDetail, '/room/<int:room_id>')
 
 api.add_resource(Profile, '/profile/<user_id>')
 api.add_resource(MyProfile, '/profile')
