@@ -17,18 +17,15 @@ def insert_user(user_id, user_password, user_name):
 
 @catch_exception
 def get_user_data_by_user_id(user_id):
-    user_data = session.query(User).filter(User.id == user_id).first()
-
-    return user_data
+    return session.query(User).filter(User.id == user_id).first()
 
 
 @catch_exception
 def update_profile(user_id, user_data):
-    user = get_user_data_by_user_id(user_id)
+    user = session.query(User).filter(User.id == user_id).first()
 
-    user.name = user_data.name if user_data.name else user.name
-    user.img = user_data.img if user_data.img else user.img
-    user.introduction = user_data.status_message if user_data.status_message else user.introduction
+    user.name = user_data['name']
+    user.img = user_data['img']
+    user.introduction = user_data['status_message']
 
     session.commit()
-    session.close()

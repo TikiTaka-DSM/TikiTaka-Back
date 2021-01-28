@@ -14,11 +14,12 @@ class MyProfile(Resource):
 
     @jwt_required
     def put(self):
-        owner_user = get_jwt_identity()
+        print(request.files)
         img = request.files['img']
-        name = request.files['name']
-        status_message = request.files['statusMessage']
+        name = request.form['name']
+        status_message = request.form['statusMessage']
 
+        owner_user = get_jwt_identity()
         return edit_profile(user_id=owner_user,
                             img=img,
                             name=name,
