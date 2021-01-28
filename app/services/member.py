@@ -4,6 +4,15 @@ from sqlalchemy import func
 
 
 @catch_exception
+def insert_member(room_id, user_id):
+    member = Member(room_id=room_id,
+                    user_id=user_id)
+
+    session.add(member)
+    session.commit()
+
+
+@catch_exception
 def get_room_id_by_member(user_id, friend_user_id):
     member = session.query(Member).\
                 filter((Member.user_id == user_id) | (Member.user_id == friend_user_id)).\
