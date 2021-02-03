@@ -1,16 +1,16 @@
-from app.services.message import insert_message
+from app.services.message import insert_message, get_latest_message
 from app.models.message import MessageType
 from app.services.user import get_user_data_by_user_id
 
 
 def store_text_message(user_id, room_id, content):
-    message = insert_message(user_id=user_id,
-                             room_id=room_id,
-                             content=content,
-                             type=MessageType.message)
+    insert_message(user_id=user_id,
+                   room_id=room_id,
+                   content=content,
+                   type=MessageType.message)
 
     user_data = get_user_data_by_user_id(user_id)
-
+    message = get_latest_message(room_id, user_id)
     message_data = {
         "user": {
             "id": user_id,

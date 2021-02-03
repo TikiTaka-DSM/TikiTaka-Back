@@ -13,8 +13,6 @@ def insert_message(user_id, room_id, content, type):
     session.commit()
     session.close()
 
-    return message
-
 
 @catch_exception
 def get_latest_message(room_id, user_id):
