@@ -6,6 +6,7 @@ from app.views.user import Auth, User
 from app.views.friend import AddFriend, GetFriends, SearchToAddFriend
 from app.views.room import CreateNewRoom, GetChattingRooms, GetChattingRoomDetail
 from app.views.profile import Profile, MyProfile
+from app.views.message import SaveMessage
 
 
 class CustomApi(Api):
@@ -36,3 +37,5 @@ api.add_resource(GetChattingRoomDetail, '/room/<int:room_id>')
 
 api.add_resource(Profile, '/profile/<user_id>')
 api.add_resource(MyProfile, '/profile')
+
+api.add_resource(SaveMessage, '/chat/message')
