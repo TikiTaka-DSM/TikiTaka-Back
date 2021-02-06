@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, ForeignKey, Boolean
 
-from app.models import Base, session, catch_exception
+from app.models import Base
 
 
 class Friend(Base):

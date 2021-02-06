@@ -1,6 +1,5 @@
 from flask import abort
 from uuid import uuid4
-import json
 
 from app.services.user import get_user_data_by_user_id, update_profile
 from app.services.friend import get_friend_state
