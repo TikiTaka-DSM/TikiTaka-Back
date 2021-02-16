@@ -2,9 +2,23 @@ from flask_restful import Resource
 from flask import request
 
 from app.controllers.user import login, sign_up
-
+from schematics.models import Model
+from schematics.types import StringType
+from app.views import validate_JSON
 
 class Auth(Resource):
+    class Schema(Model):
+        id = StringType(
+            serialized_name='id',
+            required=True
+        )
+
+        password = StringType(
+            serialized_name='password',
+            required=True
+        )
+
+    @validate_JSON(Schema)
     def post(self):
 
         user_id = request.json['id']
