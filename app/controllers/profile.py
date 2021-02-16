@@ -53,8 +53,11 @@ def edit_profile(user_id, img, name, status_message):
     if not get_user_data_by_user_id(user_id):
         abort(404, "This id not found")
 
-    image_name = str(uuid4())
-    upload_image_to_s3(img, image_name)
+    if img:
+        image_name = str(uuid4())
+        upload_image_to_s3(img, image_name)
+    else:
+        image_name = None
 
     user_data = {
         "name": name,
