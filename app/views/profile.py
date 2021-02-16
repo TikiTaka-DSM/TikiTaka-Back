@@ -14,7 +14,6 @@ class MyProfile(Resource):
 
     @jwt_required
     def put(self):
-        print(request.files)
         img = request.files['img']
         name = request.form['name']
         status_message = request.form['statusMessage']
