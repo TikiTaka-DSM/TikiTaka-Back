@@ -24,8 +24,8 @@ def get_user_data_by_user_id(user_id):
 def update_profile(user_id, user_data):
     user = session.query(User).filter(User.id == user_id).first()
 
-    user.name = user_data['name']
+    user.name = user_data['name'] if user_data['name'] else user.name
     user.img = user_data['img'] if user_data['img'] else user.img
-    user.introduction = user_data['status_message']
+    user.introduction = user_data['status_message'] if user_data['status_message'] else user.introduction
 
     session.commit()
