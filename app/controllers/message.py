@@ -30,11 +30,11 @@ def store_text_message(user_id, room_id, content):
 
 
 def store_image_message(user_id, room_id, content):
-    image_name = str(uuid4())
+    image_name = str(uuid4()) + ".png"
     file_bytes = content.encode()
     file = decode_base64_to_file(file_bytes)
 
-    upload_image_to_s3(file, image_name + '.png')
+    upload_image_to_s3(file, image_name)
 
     insert_message(user_id=user_id,
                    room_id=room_id,

@@ -54,7 +54,7 @@ def edit_profile(user_id, img, name, status_message):
         abort(404, "This id not found")
 
     if img:
-        image_name = str(uuid4())
+        image_name = str(uuid4()) + ".png"
         upload_image_to_s3(img, image_name)
     else:
         image_name = None
