@@ -38,7 +38,7 @@ class SearchFriendName(Resource):
 
 class BlockingFriend(Resource):
     @jwt_required
-    def post(self, user_id):
+    def put(self, user_id):
         owner_user = get_jwt_identity()
 
         return block_friend(owner_user, user_id)
