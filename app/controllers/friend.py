@@ -1,6 +1,6 @@
 from flask import abort
 
-from app.services.user import get_user_data_by_user_id
+from app.services.user import get_user_data_by_user_id, get_user_data_by_user_name
 from app.services.friend import get_friendship_data, get_friend_state, insert_friend
 
 
@@ -48,4 +48,16 @@ def search_friend_by_user_id(user_id):
 
     return {
         "message": "I find that user!"
+    }
+
+
+def search_friend_by_user_name(owner, user_name):
+    users = get_user_data_by_user_name(owner, user_name)
+
+    return {
+        "users": [{
+            "id": user.id,
+            "img": user.img,
+            "name": user.name
+        } for user in users]
     }

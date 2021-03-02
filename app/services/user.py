@@ -1,5 +1,6 @@
 from app.models import session, catch_exception
 from app.models.user import User, UserDefaultValue
+from app.services.friend import get_friend_state
 
 
 def insert_user(user_id, user_password, user_name):
@@ -18,6 +19,17 @@ def insert_user(user_id, user_password, user_name):
 @catch_exception
 def get_user_data_by_user_id(user_id):
     return session.query(User).filter(User.id == user_id).first()
+
+
+@catch_exception
+def get_user_data_by_user_name(owner, user_name):
+    current_users = []
+    users = session.query(User).filter(User.name.like(f'%{user_name}%')).all()
+    for user in users:
+        if get_friend_state(owner, user.id):
+            current_users.append(user)
+
+    return current_users
 
 
 @catch_exception
