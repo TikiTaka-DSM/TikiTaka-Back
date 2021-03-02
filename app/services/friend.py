@@ -29,3 +29,14 @@ def insert_friend(owner_user_id, other_user_id):
     session.add(additional_friendship)
     session.commit()
     session.close()
+
+
+@catch_exception
+def set_block_ture(owner_id, friend_id):
+    friendship = session.query(Friend).filter(Friend.user_id == owner_id).\
+                    filter(Friend.friend_user_id == friend_id).first()
+
+    friendship.blocking_state = True
+    session.commit()
+
+

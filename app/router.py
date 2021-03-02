@@ -3,7 +3,7 @@ from flask import Blueprint, current_app
 
 from app.views.ping import Ping
 from app.views.user import Auth, User
-from app.views.friend import AddFriend, GetFriends, SearchToAddFriend, SearchFriendName
+from app.views.friend import AddFriend, GetFriends, SearchToAddFriend, SearchFriendName, BlockingFriend
 from app.views.room import CreateNewRoom, GetChattingRooms, GetChattingRoomDetail
 from app.views.profile import Profile, MyProfile
 from app.views.message import SaveMessage
@@ -38,6 +38,7 @@ api.add_resource(GetChattingRoomDetail, '/room/<int:room_id>')
 api.add_resource(Profile, '/profile/<user_id>')
 api.add_resource(MyProfile, '/profile')
 
-api.add_resource(SearchFriendName, '/friends?name=<user_name>')
+api.add_resource(SearchFriendName, '/friends/search')
+api.add_resource(BlockingFriend, '/friend/block/<user_id>')
 
 api.add_resource(SaveMessage, '/chat/message')

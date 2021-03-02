@@ -1,7 +1,7 @@
 from flask import abort
 
 from app.services.user import get_user_data_by_user_id, get_user_data_by_user_name
-from app.services.friend import get_friendship_data, get_friend_state, insert_friend
+from app.services.friend import get_friendship_data, get_friend_state, insert_friend, set_block_ture
 
 
 def create_new_friend(owner_user, other_user):
@@ -60,4 +60,15 @@ def search_friend_by_user_name(owner, user_name):
             "img": user.img,
             "name": user.name
         } for user in users]
+    }
+
+
+def block_friend(owner, user_id):
+    set_block_ture(owner, user_id)
+
+    if get_user_data_by_user_id(owner):
+        abort(404, "User Not Found")
+
+    return {
+        "message": "Block"
     }
