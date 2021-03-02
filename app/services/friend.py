@@ -32,11 +32,11 @@ def insert_friend(owner_user_id, other_user_id):
 
 
 @catch_exception
-def set_block_ture(owner_id, friend_id):
+def switching_blocking_state(owner_id, friend_id):
     friendship = session.query(Friend).filter(Friend.user_id == owner_id).\
                     filter(Friend.friend_user_id == friend_id).first()
 
-    friendship.blocking_state = True
+    friendship.blocking_state = False if friendship.blocking_state else True
     session.commit()
 
 
