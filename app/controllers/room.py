@@ -61,7 +61,8 @@ def get_chatting_room_detail(room_id, owner_user_id):
     return {
         "roomData": {
             "id": room_id,
-            "name": friend.name
+            "name": friend.name,
+            "img": friend.img
         },
         "messageData": [{
             "user": {
