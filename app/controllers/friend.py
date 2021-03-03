@@ -27,6 +27,8 @@ def get_friends(owner_user):
     friendships = get_friendship_data(owner_user)
     friends = []
     for friendship in friendships:
+        if friendship.blocking_state:
+            continue
         friends.append(get_user_data_by_user_id(friendship.friend_user_id))
 
     return {
