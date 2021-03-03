@@ -69,6 +69,9 @@ def block_friend(owner, user_id):
     if not get_user_data_by_user_id(user_id):
         abort(404, "User Not Found")
 
+    if not get_friend_state(owner, user_id):
+        abort(409, "Not Friend")
+
     switching_blocking_state(owner, user_id)
 
     return {
