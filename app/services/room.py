@@ -13,6 +13,6 @@ def insert_room():
 
     session.add(room)
     session.commit()
-    room_id = room.id
 
+    room_id = session.query(Room.id).first()
     return room_id
