@@ -45,7 +45,7 @@ def get_chatting_rooms(owner_user_id):
                 "img": user.img,
                 "name": user.name
             },
-            "lastMessage": message if message else ""
+            "lastMessage": message.content if message else ""
         } for room_id, user, message in zip(rooms, friends, messages)]
     }
 
