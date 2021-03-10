@@ -11,19 +11,22 @@ def insert_message(user_id, room_id, content, type):
 
     session.add(message)
     session.commit()
-    session.close()
 
 
 @catch_exception
 def get_latest_message(room_id, user_id):
-    return session.query(Message).\
-        filter(Message.room_id == room_id).\
-        filter(Message.user_id == user_id).\
-        order_by(Message.created_at.desc()).first()
+    last_message = session.query(Message).\
+                    filter(Message.room_id == room_id).\
+                    filter(Message.user_id == user_id).\
+                    order_by(Message.created_at.desc()).first()
+
+    return last_message
 
 
 @catch_exception
 def get_messages(room_id):
-    return session.query(Message).\
-        filter(Message.room_id == room_id).\
-        order_by(Message.created_at).all()
+    messages = session.query(Message).\
+                filter(Message.room_id == room_id).\
+                order_by(Message.created_at).all()
+
+    return messages

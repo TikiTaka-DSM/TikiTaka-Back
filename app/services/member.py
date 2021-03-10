@@ -24,9 +24,12 @@ def get_room_id_by_member(user_id, friend_user_id):
 
 @catch_exception
 def get_members_by_user_id(user_id):
-    return session.query(Member).filter(Member.user_id == user_id).all()
+    member = session.query(Member).filter(Member.user_id == user_id).all()
 
+    return member
 
 @catch_exception
 def get_chatting_member(room_id, user_id):
-    return session.query(Member).filter(Member.room_id == room_id).filter(Member.user_id != user_id).first()
+    member = session.query(Member).filter(Member.room_id == room_id).filter(Member.user_id != user_id).first()
+
+    return member
