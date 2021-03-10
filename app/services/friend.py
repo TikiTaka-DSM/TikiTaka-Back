@@ -28,7 +28,6 @@ def insert_friend(owner_user_id, other_user_id):
     session.add(friendship)
     session.add(additional_friendship)
     session.commit()
-    session.close()
 
 
 @catch_exception
