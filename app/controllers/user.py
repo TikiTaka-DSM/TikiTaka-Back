@@ -2,7 +2,7 @@ from flask import abort
 from flask_jwt_extended import create_access_token
 from werkzeug.security import generate_password_hash
 
-from app.services.user import User, get_user_data_by_user_id, insert_user
+from app.services.user import get_user_data_by_user_id, insert_user
 from app.services.auth import is_current_password
 
 
