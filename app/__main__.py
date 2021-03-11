@@ -9,4 +9,4 @@ if __name__ == '__main__':
     app = create_app(LocalAppConfig, RemoteDBConfig)
     Base.metadata.create_all(db_engine)
 
-    app.run()
+    app.run(host="0.0.0.0")
