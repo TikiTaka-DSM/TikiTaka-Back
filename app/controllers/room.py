@@ -35,7 +35,7 @@ def get_chatting_rooms(owner_user_id):
     for member in friend_members:
         rooms.append(member.room_id)
         friends.append(get_user_data_by_user_id(member.user_id))
-        messages.append(get_latest_message(member.room_id, member.user_id))
+        messages.append(get_latest_message(member.room_id))
 
     return {
         "rooms": [{
