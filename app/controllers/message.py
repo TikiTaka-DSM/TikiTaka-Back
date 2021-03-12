@@ -13,7 +13,7 @@ def store_text_message(user_id, room_id, content):
                    type=MessageType.message)
 
     user_data = get_user_data_by_user_id(user_id)
-    message = get_latest_message(room_id, user_id)
+    message = get_latest_message(room_id)
     message_data = {
         "user": {
             "id": user_id,
