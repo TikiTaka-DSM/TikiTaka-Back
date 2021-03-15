@@ -14,5 +14,8 @@ def insert_room():
     session.add(room)
     session.commit()
 
-    room_id = session.query(Room.id).first()
-    return room_id
+
+@catch_exception
+def get_last_room_id():
+    room = session.query(Room).order_by(Room.id.desc()).first()
+    return room.id
