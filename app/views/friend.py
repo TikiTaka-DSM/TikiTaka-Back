@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.controllers.friend import create_new_friend, get_friends, search_friend_by_user_id, search_friend_by_user_name, block_friend
 
+
 class SearchToAddFriend(Resource):
     def get(self):
         user_id = request.args['id']
