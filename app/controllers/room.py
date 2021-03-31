@@ -16,7 +16,7 @@ def create_new_chatting_room(owner_user_id, friend_user_id):
     if not room_id:
         insert_room()
         room_id = get_last_room_id()
-        print(room_id)
+
         insert_member(room_id, owner_user_id)
         insert_member(room_id, friend_user_id)
 
