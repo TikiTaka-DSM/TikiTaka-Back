@@ -1,15 +1,15 @@
 from app.models import session, catch_exception
-from app.models.user import User, UserDefaultValue
+from app.models.user import User
 from app.services.friend import get_friend_state
 
 
 def insert_user(user_id, user_password, user_name):
 
-    user = User(id=user_id,
-                password=user_password,
-                name=user_name,
-                img=UserDefaultValue.image,
-                introduction=UserDefaultValue.introduction)
+    user = User(
+            id=user_id,
+            password=user_password,
+            name=user_name
+            )
 
     session.add(user)
     session.commit()
