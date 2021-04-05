@@ -6,6 +6,7 @@
 - [ ] 조금 더 구조화 된 코드 아키텍쳐 구상하기
 
 
-### 일지
+### 유지보수
 
-2020-12-15
+1) User Model unit test
+2) User Model에서 image와 introduction에 server_default 지정, __init__() 명시 -> services/user.py 에서 값 넣어주던거 제거
