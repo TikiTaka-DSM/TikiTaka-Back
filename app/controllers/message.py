@@ -1,6 +1,6 @@
-from app.services.message import insert_message, get_latest_message
+from app.services.message import insert_message, latest_message
 from app.models.message import MessageType
-from app.services.user import get_user_data_by_user_id
+from app.services.user import user_data_by_user_id
 from uuid import uuid4
 from utils.s3 import upload_image_to_s3
 from utils.base64 import decode_base64_to_file
@@ -12,8 +12,8 @@ def store_text_message(user_id, room_id, content):
                    content=content,
                    type=MessageType.message)
 
-    user_data = get_user_data_by_user_id(user_id)
-    message = get_latest_message(room_id)
+    user_data = user_data_by_user_id(user_id)
+    message = latest_message(room_id)
     message_data = {
         "user": {
             "id": user_id,
@@ -41,8 +41,8 @@ def store_image_message(user_id, room_id, content):
                    content=image_name,
                    type=MessageType.photo)
 
-    user_data = get_user_data_by_user_id(user_id)
-    message = get_latest_message(room_id, user_id)
+    user_data = user_data_by_user_id(user_id)
+    message = latest_message(room_id, user_id)
     message_data = {
         "user": {
             "id": user_id,

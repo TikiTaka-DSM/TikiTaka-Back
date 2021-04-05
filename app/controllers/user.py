@@ -2,12 +2,12 @@ from flask import abort
 from flask_jwt_extended import create_access_token
 from werkzeug.security import generate_password_hash
 
-from app.services.user import get_user_data_by_user_id, insert_user
+from app.services.user import user_data_by_user_id, insert_user
 from app.services.auth import is_current_password
 
 
 def sign_up(user_id, user_password, user_name):
-    if get_user_data_by_user_id(user_id):
+    if user_data_by_user_id(user_id):
         abort(409, "This id is already signed up")
 
     insert_user(user_id, generate_password_hash(user_password), user_name)
@@ -19,7 +19,7 @@ def sign_up(user_id, user_password, user_name):
 
 def login(user_id, user_password):
 
-    user = get_user_data_by_user_id(user_id)
+    user = user_data_by_user_id(user_id)
 
     if user:
         if is_current_password(user.password, user_password):

@@ -14,18 +14,18 @@ def insert_message(user_id, room_id, content, type):
 
 
 @catch_exception
-def get_latest_message(room_id):
-    last_message = session.query(Message).\
+def latest_message(room_id):
+    _message = session.query(Message).\
                     filter(Message.room_id == room_id).\
                     order_by(Message.created_at.desc()).first()
 
-    return last_message
+    return _message
 
 
 @catch_exception
-def get_messages(room_id):
-    messages = session.query(Message).\
+def messages(room_id):
+    _messages = session.query(Message).\
                 filter(Message.room_id == room_id).\
                 order_by(Message.created_at).all()
 
-    return messages
+    return _messages

@@ -1,7 +1,7 @@
 from flask import abort
 
-from app.services.user import get_user_data_by_user_id, get_user_data_by_user_name
-from app.services.friend import get_friendship_data, get_friend_state, insert_friend, switching_blocking_state
+from app.services.user import user_data_by_user_id, get_user_data_by_user_name
+from app.services.friend import friendship_data, friend_state, insert_friend, switching_blocking_state
 
 
 def create_new_friend(owner_user, other_user):
@@ -9,10 +9,10 @@ def create_new_friend(owner_user, other_user):
     if owner_user == other_user:
         abort(400, "I can’t make yourself a friend")
 
-    if not get_user_data_by_user_id(other_user):
+    if not user_data_by_user_id(other_user):
         abort(404, "This user can't find user data")
 
-    if get_friend_state(owner_user, other_user):
+    if friend_state(owner_user, other_user):
         abort(409, "Already friend!")
 
     insert_friend(owner_user, other_user)
@@ -24,12 +24,12 @@ def create_new_friend(owner_user, other_user):
 
 def get_friends(owner_user):
 
-    friendships = get_friendship_data(owner_user)
+    friendships = friendship_data(owner_user)
     friends = []
     for friendship in friendships:
         if friendship.blocking_state:
             continue
-        friends.append(get_user_data_by_user_id(friendship.friend_user_id))
+        friends.append(user_data_by_user_id(friendship.friend_user_id))
 
     return {
         "friends": [
@@ -43,7 +43,7 @@ def get_friends(owner_user):
 
 
 def search_friend_by_user_id(user_id):
-    user = get_user_data_by_user_id(user_id)
+    user = user_data_by_user_id(user_id)
 
     if not user:
         abort(404, "This user id not found")
@@ -66,10 +66,10 @@ def search_friend_by_user_name(owner, user_name):
 
 
 def block_friend(owner, user_id):
-    if not get_user_data_by_user_id(user_id):
+    if not user_data_by_user_id(user_id):
         abort(404, "User Not Found")
 
-    if not get_friend_state(owner, user_id):
+    if not friend_state(owner, user_id):
         abort(409, "Not Friend")
 
     switching_blocking_state(owner, user_id)

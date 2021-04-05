@@ -3,7 +3,7 @@ from app.models.room import Room
 
 
 @catch_exception
-def get_room_data_by_room_id(room_id):
+def room_data_by_room_id(room_id):
     return session.query(Room).filter(Room.id == room_id).first()
 
 
@@ -16,6 +16,6 @@ def insert_room():
 
 
 @catch_exception
-def get_last_room_id():
+def last_room_id():
     room = session.query(Room).order_by(Room.id.desc()).first()
     return room.id
