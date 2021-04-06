@@ -1,6 +1,6 @@
 from flask import abort
 
-from app.services.user import user_data_by_user_id, get_user_data_by_user_name
+from app.services.user import user_data_by_user_id, user_data_by_user_name
 from app.services.friend import friendship_data, friend_state, insert_friend, switching_blocking_state
 
 
@@ -54,7 +54,7 @@ def search_friend_by_user_id(user_id):
 
 
 def search_friend_by_user_name(owner, user_name):
-    users = get_user_data_by_user_name(owner, user_name)
+    users = user_data_by_user_name(owner, user_name)
 
     return {
         "users": [{
