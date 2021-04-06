@@ -2,7 +2,7 @@ from app.services.member import room_id_by_member, chatting_member, members_by_u
 from app.services.room import insert_room, last_room_id
 from app.services.user import user_data_by_user_id
 from app.services.member import insert_member
-from app.services.message import latest_message, messages
+from app.services.message import latest_message
 from app.models.message import MessageType
 from flask import abort
 

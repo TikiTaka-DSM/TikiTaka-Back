@@ -2,7 +2,6 @@ from flask import abort
 from uuid import uuid4
 
 from app.services.user import user_data_by_user_id, update_profile
-from app.services.friend import friend_state
 from app.services.member import room_id_by_member
 from utils.s3 import upload_image_to_s3
 
