@@ -1,7 +1,7 @@
 from flask import abort
 
-from app.services.user import user_data_by_user_id, user_data_by_user_name
-from app.services.friend import friendship_data, friend_state, insert_friend, switching_blocking_state
+from app.models.user import UserModel
+from app.models.friend import FriendModel
 
 
 def create_new_friend(owner_user, other_user):
@@ -9,13 +9,13 @@ def create_new_friend(owner_user, other_user):
     if owner_user == other_user:
         abort(400, "I can’t make yourself a friend")
 
-    if not user_data_by_user_id(other_user):
+    if not UserModel.get_user_data_by_user_id(other_user):
         abort(404, "This user can't find user data")
 
-    if friend_state(owner_user, other_user):
+    if FriendModel.get_friend_state(owner_user, other_user):
         abort(409, "Already friend!")
 
-    insert_friend(owner_user, other_user)
+    FriendModel.insert_friend(owner_user, other_user)
 
     return {
         "message": "Successfully add friend"
@@ -24,12 +24,12 @@ def create_new_friend(owner_user, other_user):
 
 def get_friends(owner_user):
 
-    friendships = friendship_data(owner_user)
+    friendships = FriendModel.get_friendship_data(owner_user)
     friends = []
     for friendship in friendships:
         if friendship.blocking_state:
             continue
-        friends.append(user_data_by_user_id(friendship.friend_user_id))
+        friends.append(UserModel.get_user_data_by_user_id(friendship.friend_user_id))
 
     return {
         "friends": [
@@ -43,7 +43,7 @@ def get_friends(owner_user):
 
 
 def search_friend_by_user_id(user_id):
-    user = user_data_by_user_id(user_id)
+    user = UserModel.get_user_data_by_user_id(user_id)
 
     if not user:
         abort(404, "This user id not found")
@@ -54,7 +54,7 @@ def search_friend_by_user_id(user_id):
 
 
 def search_friend_by_user_name(owner, user_name):
-    users = user_data_by_user_name(owner, user_name)
+    users = UserModel.get_user_data_by_user_name(owner, user_name)
 
     return {
         "users": [{
@@ -66,13 +66,13 @@ def search_friend_by_user_name(owner, user_name):
 
 
 def block_friend(owner, user_id):
-    if not user_data_by_user_id(user_id):
+    if not UserModel.get_user_data_by_user_id(user_id):
         abort(404, "User Not Found")
 
-    if not friend_state(owner, user_id):
+    if not FriendModel.get_friend_state(owner, user_id):
         abort(409, "Not Friend")
 
-    switching_blocking_state(owner, user_id)
+    FriendModel.switching_blocking_state(owner, user_id)
 
     return {
         "message": "Switching Blocking State"

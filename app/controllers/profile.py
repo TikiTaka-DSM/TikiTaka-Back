@@ -1,14 +1,15 @@
 from flask import abort
 from uuid import uuid4
 
-from app.services.user import user_data_by_user_id, update_profile
-from app.services.member import room_id_by_member
+from app.models.user import UserModel
+from app.models.member import MemberModel
+from app.models.friend import FriendModel
 from utils.s3 import upload_image_to_s3
 
 
 def get_myprofile(user_id):
 
-    user = user_data_by_user_id(user_id)
+    user = UserModel.get_user_data_by_user_id(user_id)
 
     return {
         "profileData": {
@@ -21,15 +22,15 @@ def get_myprofile(user_id):
 
 
 def get_profile(owner_user_id, other_user_id):
-    if not user_data_by_user_id(other_user_id):
+    if not UserModel.get_user_data_by_user_id(other_user_id):
         abort(404, "This user not found")
 
     if owner_user_id == other_user_id:
         abort(409, "Please use 'GET /profile' api")
 
-    user_data = user_data_by_user_id(other_user_id)
-    friend_state = friend_state(owner_user_id, other_user_id)
-    room_id = room_id_by_member(owner_user_id, other_user_id)
+    user_data = UserModel.get_user_data_by_user_id(other_user_id)
+    friend_state = FriendModel.get_friend_state(owner_user_id, other_user_id)
+    room_id = MemberModel.get_room_id_by_member(owner_user_id, other_user_id)
     return {
         "profileData": {
             "id": other_user_id,
@@ -49,7 +50,7 @@ def get_profile(owner_user_id, other_user_id):
 
 def edit_profile(user_id, img, name, status_message):
 
-    if not user_data_by_user_id(user_id):
+    if not UserModel.get_user_data_by_user_id(user_id):
         abort(404, "This id not found")
 
     if img:
@@ -64,7 +65,7 @@ def edit_profile(user_id, img, name, status_message):
         "status_message": status_message
     }
 
-    update_profile(user_id, user_data)
+    UserModel.update_profile(user_id, user_data)
 
     return {
         "message": "Successfully edit profile"

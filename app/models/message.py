@@ -1,9 +1,14 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, TIMESTAMP, text
+from app.models import Base, session
 
-from app.models import Base
+
+class MessageType:
+    message = "text"
+    photo = "png"
+    voice = "mp3"
 
 
-class Message(Base):
+class MessageModel(Base):
     __tablename__ = 'messages'
 
     id = Column(Integer, autoincrement=True, primary_key=True)
@@ -13,8 +18,30 @@ class Message(Base):
     type = Column(String(10), nullable=False)
     created_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
 
+    @staticmethod
+    def insert_message(user_id, room_id, content, type):
+        message = MessageModel(user_id=user_id,
+                               room_id=room_id,
+                               content=content,
+                               type=type)
 
-class MessageType:
-    message = "text"
-    photo = "png"
-    voice = "mp3"
+        session.add(message)
+        session.commit()
+
+    @staticmethod
+    def get_latest_message_in_room(room_id):
+        _message = session.query(MessageModel). \
+            filter(MessageModel.room_id == room_id). \
+            order_by(MessageModel.created_at.desc()).first()
+
+        return _message
+
+    @staticmethod
+    def get_messages(room_id):
+        _messages = session.query(MessageModel). \
+            filter(MessageModel.room_id == room_id). \
+            order_by(MessageModel.created_at).all()
+
+        return _messages
+
+

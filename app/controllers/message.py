@@ -1,19 +1,18 @@
-from app.services.message import insert_message, latest_message
-from app.models.message import MessageType
-from app.services.user import user_data_by_user_id
+from app.models.message import MessageModel, MessageType
+from app.models.user import UserModel
 from uuid import uuid4
 from utils.s3 import upload_image_to_s3
 from utils.base64 import decode_base64_to_file
 
 
 def store_text_message(user_id, room_id, content):
-    insert_message(user_id=user_id,
-                   room_id=room_id,
-                   content=content,
-                   type=MessageType.message)
+    MessageModel.insert_message(user_id=user_id,
+                                room_id=room_id,
+                                content=content,
+                                type=MessageType.message)
 
-    user_data = user_data_by_user_id(user_id)
-    message = latest_message(room_id)
+    user_data = UserModel.user_data_by_user_id(user_id)
+    message = MessageModel.latest_message(room_id)
     message_data = {
         "user": {
             "id": user_id,
@@ -36,13 +35,13 @@ def store_image_message(user_id, room_id, content):
 
     upload_image_to_s3(file, image_name)
 
-    insert_message(user_id=user_id,
-                   room_id=room_id,
-                   content=image_name,
-                   type=MessageType.photo)
+    MessageModel.insert_message(user_id=user_id,
+                                room_id=room_id,
+                                content=image_name,
+                                type=MessageType.photo)
 
-    user_data = user_data_by_user_id(user_id)
-    message = latest_message(room_id, user_id)
+    user_data = UserModel.user_data_by_user_id(user_id)
+    message = MessageModel.get_latest_message_in_room(room_id)
     message_data = {
         "user": {
             "id": user_id,
