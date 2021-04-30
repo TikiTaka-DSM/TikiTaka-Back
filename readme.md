@@ -10,4 +10,4 @@
 
 1) User Model unit test
 2) User Model에서 image와 introduction에 server_default 지정, __init__() 명시 -> services/user.py 에서 값 넣어주던거 제거
-3) 모든 services 함수에서 함수명 속 get 키워드를 제거
+3) service 함수들 중 session 사용하는 것들 model로 이동
