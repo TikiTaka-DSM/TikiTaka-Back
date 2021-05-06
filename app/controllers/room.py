@@ -56,7 +56,7 @@ def get_chatting_rooms(owner_user_id):
 def get_chatting_room_detail(room_id, owner_user_id):
     member = MemberModel.get_chatting_member(room_id, owner_user_id)
     if not member:
-        abort(404, "No Member Data in Room")
+        abort(404, "No Member Data in Rooms")
 
     friend = UserModel.get_user_data_by_user_id(member.user_id)
     messages = MessageModel.get_messages(room_id)
