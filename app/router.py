@@ -3,10 +3,10 @@ from flask import Blueprint, current_app
 
 from app.views.ping import Ping
 from app.views.user import Auth, User
-from app.views.friend import AddFriend, GetFriends, SearchToAddFriend, SearchFriendName, BlockingFriend
-from app.views.room import CreateNewRoom, GetChattingRooms, GetChattingRoomDetail
+from app.views.friend import Friends, Friend, SearchFriendName
+from app.views.room import Rooms, Room
 from app.views.profile import Profile, MyProfile
-from app.views.message import SaveMessage
+from app.views.message import Message
 
 
 class CustomApi(Api):
@@ -27,18 +27,15 @@ api.add_resource(Ping, '/ping')
 api.add_resource(User, '/user')
 api.add_resource(Auth, '/user/auth')
 
-api.add_resource(AddFriend, '/friend/<user_id>')
-api.add_resource(GetFriends, '/friends')
-api.add_resource(SearchToAddFriend, '/friend')
+api.add_resource(Friends, '/friends')
+api.add_resource(Friend, '/friends/<user_id>')
 
-api.add_resource(CreateNewRoom, '/room')
-api.add_resource(GetChattingRooms, '/rooms')
-api.add_resource(GetChattingRoomDetail, '/room/<int:room_id>')
+api.add_resource(Rooms, '/rooms')
+api.add_resource(Room, '/rooms/<int:room_id>')
 
 api.add_resource(Profile, '/profile/<user_id>')
 api.add_resource(MyProfile, '/profile')
 
-api.add_resource(SearchFriendName, '/friends/search')
-api.add_resource(BlockingFriend, '/friend/block/<user_id>')
+api.add_resource(SearchFriendName, '/friends')
 
-api.add_resource(SaveMessage, '/chat/message')
+api.add_resource(Message, '/chat/message')
