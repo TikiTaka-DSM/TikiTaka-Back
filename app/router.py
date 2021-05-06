@@ -36,6 +36,4 @@ api.add_resource(Room, '/rooms/<int:room_id>')
 api.add_resource(Profile, '/profile/<user_id>')
 api.add_resource(MyProfile, '/profile')
 
-api.add_resource(SearchFriendName, '/friends')
-
 api.add_resource(Message, '/chat/message')
