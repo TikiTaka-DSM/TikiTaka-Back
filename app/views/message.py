@@ -5,7 +5,7 @@ from app.models.message import MessageType
 from app.controllers.message import store_text_message, store_image_message
 
 
-class SaveMessage(Resource):
+class Message(Resource):
     def post(self):
         room_id = request.json['roomId']
         access_token = request.json['token']

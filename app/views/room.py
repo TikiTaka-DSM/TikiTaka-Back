@@ -8,13 +8,19 @@ from app.views import validate_json
 from app.controllers.room import create_new_chatting_room, get_chatting_room_detail, get_chatting_rooms
 
 
-class CreateNewRoom(Resource):
+class Rooms(Resource):
     class Schema(Model):
         friend_id = StringType(
             serialized_name='friend',
             required=True,
             max_length=45
         )
+
+    @jwt_required
+    def get(self):
+        owner_user = get_jwt_identity()
+
+        return get_chatting_rooms(owner_user)
 
     @validate_json(Schema)
     @jwt_required
@@ -25,15 +31,8 @@ class CreateNewRoom(Resource):
         return create_new_chatting_room(owner_user_id, friend_id)
 
 
-class GetChattingRooms(Resource):
-    @jwt_required
-    def get(self):
-        owner_user = get_jwt_identity()
 
-        return get_chatting_rooms(owner_user)
-
-
-class GetChattingRoomDetail(Resource):
+class Room(Resource):
     class Schema(Model):
         room_id = IntType(
             serialized_name='room_id',
