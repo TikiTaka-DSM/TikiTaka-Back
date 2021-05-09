@@ -3,7 +3,7 @@ from flask import Blueprint, current_app
 
 from app.views.ping import Ping
 from app.views.user import Auth, User
-from app.views.friend import Friends, Friend, SearchFriendName
+from app.views.friend import Friends, Friend
 from app.views.room import Rooms, Room
 from app.views.profile import Profile, MyProfile
 from app.views.message import Message
