@@ -5,14 +5,14 @@ from app.models import Base, session
 class FriendModel(Base):
     __tablename__ = 'friends'
 
-    user_id: str = Column(String(45), ForeignKey('users.id'), primary_key=True)
-    friend_user_id: str = Column(String(45), ForeignKey('users.id'), primary_key=True)
-    blocking_state: bool = Column(Boolean, nullable=False, default=False)
+    user_id = Column(String(45), ForeignKey('users.id'), primary_key=True)
+    friend_user_id = Column(String(45), ForeignKey('users.id'), primary_key=True)
+    blocking_state = Column(Boolean, nullable=False, default=False)
 
-    def __init__(self, user_id: str, friend_user_id: str):
+    def __init__(self, user_id: str, friend_user_id: str, blocking_state=False):
         self.user_id = user_id
         self.friend_user_id = friend_user_id
-        self.blocking_state = False
+        self.blocking_state = blocking_state
 
     @staticmethod
     def get_friendship_data(owner_user_id):
