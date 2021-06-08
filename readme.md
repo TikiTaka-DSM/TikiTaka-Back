@@ -8,8 +8,11 @@
 </p>
 
 ## Introduce
-ㅁㄴㅇ
-
+실시간 채팅 서비스
 
 ### API docs
 https://www.notion.so/API-e9be2b5d5e254abb840f12dc5b585da1
+
+## Developing Log
+- Gunicorn 적용
+- socket.io 실시간 양방향 통신 구현
