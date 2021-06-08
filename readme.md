@@ -1,11 +1,15 @@
-# TikiTaka Project
+<h1 align="center"> TikiTaka Project </h1><br/>
 
-### 명세
+
+<p align="center">
+  <a href="https://gitpoint.co/">
+    <img alt="TikiTaka" title="TikiTaka" src="https://user-images.githubusercontent.com/48384692/121165479-46470180-c88b-11eb-985c-599955cf2b2f.png" width="300">
+  </a>
+</p>
+
+## Introduce
+
+
+
+### API docs
 https://www.notion.so/API-e9be2b5d5e254abb840f12dc5b585da1
-
-### 유지보수
-
-1) User Model unit test
-2) User Model에서 image와 introduction에 server_default 지정, \__init\__() 명시 -> services/user.py 에서 값 넣어주던거 제거
-3) service 함수들 중 session 사용하는 함수들 model로 이동
-4) Restful API 설계 적용
